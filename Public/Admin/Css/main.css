@@ -1,0 +1,19 @@
+@charset "utf-8";
+body{font-family:'Microsoft Yahei';font-size:12px;}
+table,.btn,.form-control{font-size:12px;}
+a:hover, a:focus{text-decoration:none;}
+ul,ol,li{list-style:none;margin:0;padding:0;}
+label{font-weight:normal;cursor:pointer;margin:0;}
+.table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, 
+.table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td{border:none;vertical-align:middle;line-height:25px;border-top:1px solid #ddd;}
+.table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th{text-align:center;font-weight:normal;}
+table tfoot{text-align:center;}
+form{overflow:hidden;}
+input[type=radio], input[type=checkbox]{margin: 7px 0 0;}
+/*
+ *标签页
+ */
+ .tab-content{margin:20px 0;}
+
+ /*日志*/
+ .search_log{text-align:center;margin-top:20px; }

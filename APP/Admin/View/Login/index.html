@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>登录后台</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+<logincss/>
+</head>
+<body>
+
+<div class="page-container">
+    <h1>登录(Login)</h1>
+    <form action="{:U('sign')}" method="post">
+        <input type="text" name="username" class="username" placeholder="请输入您的用户名！">
+        <input type="password" name="password" class="password" placeholder="请输入您的用户密码！">
+        <if condition="$verify eq 'Y'">
+        <div class="verify">
+            <input type="text" name="code" placeholder="请输入验证码！"  /><img src='{:U('Login/verify')}' onclick='this.src=this.src+"?"+Math.random()' title="点击刷新" />
+        </div>
+        <else/>
+        </if>
+        <button type="submit" class="submit_button">登录</button>
+        <div class="error"><span>+</span></div>
+    </form>
+    <div class="connect">
+        <p>快捷</p>
+        <p>
+            <a class="facebook" href=""></a>
+            <a class="twitter" href=""></a>
+        </p>
+    </div>
+</div>
+<loginjs/>
+
+</body>
+</html>

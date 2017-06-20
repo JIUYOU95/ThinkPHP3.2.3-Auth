@@ -1,0 +1,98 @@
+<include file="Public:header" />
+
+<ul class="nav nav-tabs">
+	<li class="active"><a data-toggle="tab" href="#home">系统基本参数</a></li>
+	<li><a data-toggle="tab" href="#menu1">添加系统设置</a></li>
+</ul>
+
+<div class="tab-content">
+	<div id="home" class="tab-pane fade in active">
+		<table class="table table-bordered table-striped table-hover table-condensed" border="1">
+			<thead>
+			<tr>
+				<th>参数说明</th>
+				<th>参数值</th>
+				<th>变量名</th>
+				<!--<th>操作</th>-->
+			</tr>
+			</thead>
+			<form action="{:U('edit')}" method="post">
+			<tbody>
+			<foreach name="data" item="v">
+			<tr>
+				<td>{$v['info']}</td>
+				<td>
+					<if condition="$v['type'] eq 'string'">
+		            	<input name="{$v['configname']}" type="text" id="<{$v['configname']}>"  value="{$v['content']}" class="form-control" />
+		             <elseif condition="$v['type'] eq 'number'"/>
+		                <input name="{$v['configname']}" type="text" id="<{$v['configname']}>"  value="{$v['content']}" class="form-control" />
+		            <elseif condition="$v['type'] eq 'bstring'"/>
+		            	<textarea name="<{$v['configname']}>" id="<{$v['configname']}>" class="form-control">{$v['content']}</textarea>
+		            <elseif condition="$v['type'] eq bool"/>
+		            	<div class="btn-group" data-toggle="buttons">
+						    <label class="btn btn-primary <if condition="$v['content'] eq 'Y'">active</if>">
+						        <input type="radio" name="{$v['configname']}" value="Y"> 开启
+						    </label>
+						    <label class="btn btn-primary <if condition="$v['content'] eq 'N'">active</if>">
+						        <input type="radio" name="{$v['configname']}" value="N"> 关闭
+						    </label>
+						</div>
+		            </if>
+				</td>
+				<td style="text-align:center;">{$v['configname']}</td>
+				<!--<td style="text-align:center;"><a href="">删除</a></td>-->
+			</tr>
+			</foreach>
+			</tbody>
+			<tfoot>
+			<tr>
+				<td colspan="3"><input class="btn btn-success" type="submit" value="更改信息"></td>
+			</tr>
+			</tfoot>
+			</form>
+		</table>
+	</div>
+	<div id="menu1" class="tab-pane fade">
+		<form class="form-inline" action="{:U('add')}" method="post">
+			<table class="table table-striped table-bordered table-hover table-condensed">
+				<tr>
+					<th>变量名</th>
+					<td> <input class="form-control" type="text" name="configname"></td>
+				</tr>
+				<tr>
+					<th>参数值</th>
+					<td> <input class="form-control" type="text" name="content"></td>
+				</tr>
+				<tr>
+					<th>参数说明</th>
+					<td> <input class="form-control" type="text" name="info"></td>
+				</tr>
+				<tr>
+					<th>参数类型</th>
+					<td>
+						<div class="btn-group" data-toggle="buttons">
+						    <label class="btn btn-primary active">
+						        <input type="radio" name="type" value="string" checked> 文本
+						    </label>
+						    <label class="btn btn-primary">
+						        <input type="radio" name="type" value="bstring"> 多行文本
+						    </label>
+						    <label class="btn btn-primary">
+						        <input type="radio" name="type" value="bool"> 布尔(Y/N)
+						    </label>
+						    <label class="btn btn-primary">
+						        <input type="radio" name="type" value="number"> 数字
+						    </label>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th></th>
+					<td> <input class="btn btn-success" type="submit" value="添加"></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+</div>
+
+<include file="Public:footer" />
