@@ -1,4 +1,22 @@
-<include file="Public:header" />
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>main</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+
+    <link rel="stylesheet" href="/Vince/Public/Common/bootstrap/3.3.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/Vince/Public/Common/bootstrap/3.3.0/css/bootstrap-theme.min.css" />
+    <link rel="stylesheet" href="/Vince/Public/Common/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <script src="/Vince/Public/Common/jquery/2.0.0/jquery.min.js"></script>
+    <script src="/Vince/Public/Common/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/Vince/Public/Admin/Css/main.css" />
+    
+</head>
+<body>
 <ul id="myTab" class="nav nav-tabs">
 	<li class="active"><a href="#lists" data-toggle="tab">用户组列表</a></li>
 	<li><a href="javascript:;" onclick="add()">添加用户组</a></li>
@@ -11,17 +29,15 @@
 				<th>用户组名</th>
 				<th>操作</th>
 			</tr>
-			<foreach name="data" item="v">
-			<tr>
-				<td>{$v['title']}</td>
+			<?php if(is_array($data)): foreach($data as $key=>$v): ?><tr>
+				<td><?php echo ($v['title']); ?></td>
 				<td> 
-					<a href="javascript:;" ruleId="{$v['id']}" ruleTitle="{$v['title']}" onclick="edit(this)">修改</a> | 
-					<a href="javascript:if(confirm('确定删除？'))location='{:U('Admin/Rule/delete_group',array('id'=>$v['id'],'title'=>$v['title']))}'">删除</a> | 
-					<a href="{:U('Admin/Rule/rule_group',array('id'=>$v['id']))}">分配权限</a> | 
-					<a href="{:U('Admin/Rule/check_user',array('group_id'=>$v['id']))}">添加成员</a>
+					<a href="javascript:;" ruleId="<?php echo ($v['id']); ?>" ruleTitle="<?php echo ($v['title']); ?>" onclick="edit(this)">修改</a> | 
+					<a href="javascript:if(confirm('确定删除？'))location='<?php echo U('Admin/Rule/delete_group',array('id'=>$v['id']));?>'">删除</a> | 
+					<a href="<?php echo U('Admin/Rule/rule_group',array('id'=>$v['id']));?>">分配权限</a> | 
+					<a href="<?php echo U('Admin/Rule/check_user',array('group_id'=>$v['id']));?>">添加成员</a>
 				</td>
-			</tr>
-			</foreach>
+			</tr><?php endforeach; endif; ?>
 		</table>
 	</div>
 </div>
@@ -33,7 +49,7 @@
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times;</button>
 				<h4 class="modal-title" id="myModalLabel">添加用户组</h4>
 			</div>
-			<form class="form-horizontal" action="{:U('Admin/Rule/add_group')}" method="post">
+			<form class="form-horizontal" action="<?php echo U('Admin/Rule/add_group');?>" method="post">
 			<div class="modal-body">
 				<div class="form-group">
 				    <label for="title" class="col-sm-2 control-label">用户组名</label>
@@ -57,7 +73,7 @@
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times;</button>
 				<h4 class="modal-title" id="myModalLabel">修改用户组</h4>
 			</div>
-			<form class="form-horizontal" action="{:U('Admin/Rule/edit_group')}" method="post">
+			<form class="form-horizontal" action="<?php echo U('Admin/Rule/edit_group');?>" method="post">
 			<input type="hidden" name="id">
 			<div class="modal-body">
 				<div class="form-group">
@@ -92,4 +108,9 @@ function edit(obj){
 	$('#myModal-edit').modal('show');
 }
 </script>
-<include file="Public:footer" />
+
+
+    <script src="/Vince/Public/Common/Js/jquery.nicescroll.js"></script>
+    <script src="/Vince/Public/Admin/Js/main.js"></script>
+</body>
+</html>

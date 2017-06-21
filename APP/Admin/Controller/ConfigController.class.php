@@ -21,6 +21,7 @@ class ConfigController extends AuthController {
 		if($Config->create()){
 			$lastid=$Config->addData($data);
  			if($lastid){
+ 				D('Log')->addData('配置变量添加-'.I('configname'));
  				$url = C('cfg_conf');
  	 			$result=$Config->ReWriteConfig($url);
  	 			if ($result) {
@@ -39,7 +40,6 @@ class ConfigController extends AuthController {
 	/*
 	 *系统参数更新
 	 */
-
 	public function edit(){
 		$Config=D('Config');
 		if($Config->create()){
@@ -49,6 +49,7 @@ class ConfigController extends AuthController {
 		        $where['configname']=$k;
 		        $Config->where($where)->save($data);       	
     		}
+    		D('Log')->addData('系统配置更新');
 			$url = C('cfg_conf');
 	    	$result=$Config->ReWriteConfig($url);
 	    	if ($result) {
@@ -60,26 +61,51 @@ class ConfigController extends AuthController {
 			$this->error($Config->getError());
 		}
 	}
+
 	/*
 	 *系统配置删除
 	 */
-
 	public function delete(){
 
 	}
 
 	/*
-	 * 日志
+	 * 日志列表
 	 */
 	public function log(){
 		$Log=D('Log');
-		if(I('username')){
-			$whereu['username']=I('username');
-			$datau=D('Admin')->where($whereu)->find();
-			$where['uid']=$datau['id'];
+		if(I('name')){
+			$where['uid']=I('name');
+			$this->name=I('name');
 		}
 
-		$this->loglist=$Log->getPage($where,'id');
+		$this->loglist=$Log->getPage($where,'id desc','14');
 		$this->display();
+	}
+	/*
+	 * 日志删除
+	 */
+	public function alldel(){
+		$ids=explode(',',substr(I('id'),1));
+		foreach($ids as $key=>$id){
+			if(!$this->dellog($id)){
+				$this->show(0);
+			}
+		}
+		D('Log')->addData('日志删除');
+		$this->show(1);
+	}
+	private function dellog($id){
+		if(!$id)
+			return false;
+		$where['id']=$id;
+	 	$Log=D('Log');
+	 	$count=$Log->where($where)->delete();
+	 	if($count){
+			return true;
+	 	}else{
+	 		return false;
+	 	}
+
 	}
 }

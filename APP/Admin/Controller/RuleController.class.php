@@ -24,6 +24,7 @@ class RuleController extends AuthController {
         unset($data['id']);
         $result=D('AuthRule')->addData($data);
         if ($result) {
+            D('Log')->addData('添加权限-'.I('title'));
             $this->success('添加成功',U('Admin/Rule/index'));
         }else{
             $this->error('添加失败');
@@ -40,6 +41,7 @@ class RuleController extends AuthController {
             );
         $result=D('AuthRule')->editData($map,$data);
         if ($result) {
+            D('Log')->addData('修改权限-'.I('title'));
             $this->success('修改成功',U('Admin/Rule/index'));
         }else{
             $this->error('修改失败');
@@ -56,6 +58,7 @@ class RuleController extends AuthController {
             );
         $result=D('AuthRule')->deleteData($map);
         if($result){
+            D('Log')->addData('删除权限-'.I('title'));
             $this->success('删除成功',U('Admin/Rule/index'));
         }else{
             $this->error('请先删除子权限');
@@ -80,6 +83,7 @@ class RuleController extends AuthController {
         unset($data['id']);
         $result=D('AuthGroup')->addData($data);
         if ($result) {
+            D('Log')->addData('添加用户组-'.I('title'));
             $this->success('添加成功',U('Admin/Rule/group'));
         }else{
             $this->error('添加失败');
@@ -96,6 +100,7 @@ class RuleController extends AuthController {
             );
         $result=D('AuthGroup')->editData($map,$data);
         if ($result) {
+            D('Log')->addData('修改用户组-'.I('title'));
             $this->success('修改成功',U('Admin/Rule/group'));
         }else{
             $this->error('修改失败');
@@ -112,6 +117,7 @@ class RuleController extends AuthController {
             );
         $result=D('AuthGroup')->deleteData($map);
         if ($result) {
+            D('Log')->addData('删除用户组-'.I('title'));
             $this->success('删除成功',U('Admin/Rule/group'));
         }else{
             $this->error('删除失败');
@@ -131,6 +137,7 @@ class RuleController extends AuthController {
             $data['rules']=implode(',', $data['rule_ids']);
             $result=D('AuthGroup')->editData($map,$data);
             if ($result) {
+                D('Log')->addData('分配权限');
                 $this->success('操作成功',U('Admin/Rule/group'));
             }else{
                 $this->error('操作失败');
@@ -223,6 +230,7 @@ class RuleController extends AuthController {
             $data=I('post.');
             $result=D('Admin')->addData($data);
             if($result){
+                D('Log')->addData('添加管理员-'.I('username'));
                 if (!empty($data['group_ids'])) {
                     foreach ($data['group_ids'] as $k => $v) {
                         $group=array(
@@ -269,6 +277,7 @@ class RuleController extends AuthController {
 
             $result=D('Admin')->editData($map,$data);
             if($result){
+                D('Log')->addData('修改管理员-'.I('nickname'));
                 // 操作成功
                 $this->success('编辑成功',U('Admin/Rule/edit_admin',array('id'=>$uid)));
             }else{
@@ -312,6 +321,7 @@ class RuleController extends AuthController {
             );
         $result=D('Admin')->deleteData($map);
         if ($result) {
+            D('Log')->addData('删除管理员-'.I('username'));
             $this->success('删除成功',U('Admin/Rule/admin_user_list'));
         }else{
             $this->error('删除失败');
@@ -332,6 +342,7 @@ class RuleController extends AuthController {
         }
         $count=M('Admin')->where(array('id'=>$id))->setField('status',$lock);
         if($count>0){
+            D('Log')->addData($msg.'管理员-'.I('username'));
             $this->success('用户'.$msg.'成功！',U('Admin/Rule/admin_user_list'));
         }else{
             $this->error('用户'.$msg.'失败！');

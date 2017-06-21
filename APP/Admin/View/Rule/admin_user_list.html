@@ -58,14 +58,14 @@ $(function(){
 				</td>
 				<td>
 					<if condition="$v['status'] eq 1"> 
-						<a href="{:U('Admin/Rule/lockHandle',array('id'=>$v['id'],'lock'=>3))}" class='<if condition="$v['id'] eq 1">nopurview</if>'>锁定</a>
+						<a href="{:U('Admin/Rule/lockHandle',array('id'=>$v['id'],'username'=>$v['username'],'lock'=>3))}" class='<if condition="$v['id'] eq 1">nopurview</if>'>锁定</a>
 					<elseif condition="$v['status'] eq 3"/>
-						<a href="{:U('Admin/Rule/lockHandle',array('id'=>$v['id'],'lock'=>1))}">解锁</a>
+						<a href="{:U('Admin/Rule/lockHandle',array('id'=>$v['id'],'username'=>$v['username'],'lock'=>1))}">解锁</a>
 					<elseif condition="$v['status'] eq 2"/>
 						<a href="">验证</a>
 					</if>
 					| <a href="{:U('Admin/Rule/edit_admin',array('id'=>$v['id']))}">修改权限或密码</a>
-					| <a href="{:U('Admin/Rule/delete_admin',array('id'=>$v['id']))}" class='<if condition="$v['id'] eq 1">nodel</if>'>删除</a>
+					| <a href="{:U('Admin/Rule/delete_admin',array('id'=>$v['id'],'username'=>$v['username']))}" class='<if condition="$v['id'] eq 1">nodel</if>'>删除</a>
 				</td>
 			</tr>
 			</foreach>

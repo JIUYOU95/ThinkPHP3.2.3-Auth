@@ -41,7 +41,7 @@
 					<td style="text-align:center;">
 						<a href="javascript:;" navId="<?php echo ($v['id']); ?>" navName="<?php echo ($v['name']); ?>" onclick="add_child(this)">添加子菜单</a> | 
 						<a href="javascript:;" navId="<?php echo ($v['id']); ?>" navName="<?php echo ($v['name']); ?>" navMca="<?php echo ($v['mca']); ?>" navIco="<?php echo ($v['ico']); ?>" onclick="edit(this)">修改</a> | 
-						<a href="javascript:if(confirm('确定删除？'))location='<?php echo U('Admin/Nav/delete',array('id'=>$v['id']));?>'">删除</a>
+						<a href="javascript:if(confirm('确定删除？'))location='<?php echo U('Admin/Nav/delete',array('id'=>$v['id'],'name'=>$v['name']));?>'">删除</a>
 					</td>
 				</tr><?php endforeach; endif; ?>
 				</tbody>

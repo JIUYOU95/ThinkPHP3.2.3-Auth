@@ -100,6 +100,9 @@ class BaseModel extends Model{
             ->count();
         //$page=new_page($count,$limit);
         $page=new \Think\Page($count,$limit);
+        $page->setConfig('prev','«');
+        $page->setConfig('next','»');
+        $page->setConfig('header','条');
         // 获取分页数据
         if (empty($field)) {
             $list=$this

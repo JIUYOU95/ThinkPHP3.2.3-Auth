@@ -19,6 +19,7 @@ class NavController extends AuthController {
 		unset($data['id']);
 		$result=D('Nav')->addData($data);
 		if ($result) {
+			D('Log')->addData('添加菜单-'.I('name'));
 			$this->success('添加成功',U('Admin/Nav/index'));
 		}else{
 			$this->error('添加失败');
@@ -35,6 +36,7 @@ class NavController extends AuthController {
 			);
 		$result=D('Nav')->editData($map,$data);
 		if ($result) {
+			D('Log')->addData('修改菜单-'.I('name'));
 			$this->success('修改成功',U('Admin/Nav/index'));
 		}else{
 			$this->error('修改失败');
@@ -51,6 +53,7 @@ class NavController extends AuthController {
 			);
 		$result=D('Nav')->deleteData($map);
 		if($result){
+			D('Log')->addData('删除菜单-'.I('name'));
 			$this->success('删除成功',U('Admin/Nav/index'));
 		}else{
 			$this->error('请先删除子菜单');
@@ -63,6 +66,7 @@ class NavController extends AuthController {
 		$data=I('post.');
 		$result=D('Nav')->orderData($data);
 		if ($result) {
+			D('Log')->addData('菜单排序');
 			$this->success('排序成功',U('Admin/Nav/index'));
 		}else{
 			$this->error('排序失败');

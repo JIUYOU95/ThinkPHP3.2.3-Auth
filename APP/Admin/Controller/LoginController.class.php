@@ -61,7 +61,7 @@ class LoginController extends Controller{
 	//退出
 	public function logout() {
  	$Opadmin=new Opadmin();
- 	if($Opadmin->loginout()){
+ 	if($Opadmin->loginout()){       
  		$this->redirect('Login/index');
  	}
  }

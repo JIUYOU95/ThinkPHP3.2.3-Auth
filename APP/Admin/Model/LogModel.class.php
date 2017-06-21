@@ -4,9 +4,9 @@ use Common\Model\BaseModel;
 use Admin\Common\Opadmin;
 Class LogModel extends BaseModel{
 	protected $_auto = array (
-		array('time','time',1,'function'),
-		array('ip','get_client_ip',1,'function'), 	 
-		array('uid','getUid',1,'callback'), 
+		array('time','time',3,'function'),
+		array('ip','get_client_ip',3,'function'), 	 
+		array('uid','getUid',3,'callback'), 
 	);
 
 	protected function getUid(){
@@ -22,7 +22,8 @@ Class LogModel extends BaseModel{
 	 	if(C('cfg_log')=='N')
 	 		return true;
         // 对data数据进行验证
-        if(!$data=$this->create()){
+        if(!$data=$this->field('logtext,time,uid,ip')->create()){
+        	//p($this->getError());die;
             // 验证不通过返回错误
             return false;
         }else{
@@ -31,6 +32,7 @@ Class LogModel extends BaseModel{
 			//$data['ip']=get_client_ip();
 		 	$data['logtext']=$content;
 			$result=$this->add($data);
+			//echo $this->_sql();die;
             return $result;
         }
     }
