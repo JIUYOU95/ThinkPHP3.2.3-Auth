@@ -23,7 +23,7 @@ Class LogModel extends BaseModel{
 	 		return true;
         // 对data数据进行验证
         if(!$data=$this->field('logtext,time,uid,ip')->create()){
-        	//p($this->getError());die;
+        	
             // 验证不通过返回错误
             return false;
         }else{
