@@ -1,0 +1,110 @@
+<include file="Public:header" />
+<layuicss/>
+<style type="text/css">
+.layui-form-label{width:auto;}
+</style>
+<!--面包屑导航-->
+<ol class="breadcrumb">
+    <li><a href="{:U('Index/Welcome')}">Home</a></li>
+    <li class="active">个人中心</li>
+    <span class="btn btn-primary rightbut"  data-toggle="modal" data-target="#myModal">修改密码</span>
+</ol>
+
+<!--avatar-->
+<div class="content-left">
+  <div class="site-demo-upload">
+    <if condition="$data['avatar'] eq ''">
+      <img id="lay_demo_upload" src="__PUBLIC__/Admin/Images/Kitty.jpg">
+    <else /> 
+      <img id="lay_demo_upload" src="__PUBLIC__/Uploads/avatar/{$data['avatar']}">
+    </if>
+    
+    <div class="site-demo-upbar">
+      <input type="file" name="avatar" class="layui-upload-file">
+    </div>
+  </div>
+
+  <ul class="list-group user-list">
+    <li class="list-group-item">登录账号<span>{$data['username']}</span></li>
+    <li class="list-group-item">注册时间<span>{$data['regtime']|date="Y-m-d",###}</span></li>
+  </ul>
+</div>
+
+<form class="layui-form content-right" action="{:U('index')}" method="post">
+  <div class="layui-form-item">
+    <label class="layui-form-label">昵称</label>
+    <div class="layui-input-block">
+      <input type="text" name="nickname" lay-verify="required"  autocomplete="off" class="layui-input" value="{$data['nickname']}">
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label">Email</label>
+    <div class="layui-input-block">
+      <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input" value="{$data['email']}">
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label">Tel</label>
+    <div class="layui-input-block">
+      <input type="tel" name="phone" lay-verify="phone" autocomplete="off" class="layui-input" value="{$data['phone']}">
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label">住址</label>
+    <div class="layui-input-block">
+      <input type="text" name="address" lay-verify="required" autocomplete="off" class="layui-input" value="{$data['address']}">
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <div class="layui-input-block">
+      <button class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+    </div>
+  </div>
+</form>
+
+<!--修改密码-->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">修改密码</h4>
+            </div>
+            <form class="form-horizontal" action="{:U('edit_password')}" method="post">
+            <div class="modal-body">
+              <div class="form-group">
+                <label for="repwd" class="col-sm-2 control-label">原密码</label>
+                <div class="col-sm-10">
+                  <input type="password" class="form-control" name="repwd" id="repwd" placeholder="原先的密码">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="password" class="col-sm-2 control-label">密码</label>
+                <div class="col-sm-10">
+                  <input type="password" class="form-control" name="password" id="password" placeholder="现密码">
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="submit" class="btn btn-primary">提交</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<layuijs/>
+<script>
+layui.use('upload', function(){
+  	layui.upload({
+	    url: "{:U('avatar')}"
+	    ,success: function(res){
+        $('#lay_demo_upload').attr("src","__PUBLIC__/Uploads/avatar/"+res)
+	      //console.log(res)
+	    }
+  	});
+})
+</script>
+<include file="Public:footer" />
